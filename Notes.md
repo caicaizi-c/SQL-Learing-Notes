@@ -28,14 +28,14 @@ net start/stop + 服务名称 区分大小写
 表的行被称作数据/记录（一条数据/一条记录），列叫做字段。每个字段都有字段名称、字段数据类型、字段约束、字段长度  
 表还有主键/外键的概念，后面会讲  
 ### SQL的分类
-- 数据查询语言(**DQL**-Data Query Language)
+- 数据查询语言(**DQL**-Data Query Language)  
 select
-- 数据操作语言(**DML**-Data Manipulation Language)
+- 数据操作语言(**DML**-Data Manipulation Language)  
 insert;delete;update
-- 数据定义语言(**DDL**-Data Definition Language)
+- 数据定义语言(**DDL**-Data Definition Language)  
 create;drop;alter
-- 事务控制语言(**TCL**-Transactional Control Language)
+- 事务控制语言(**TCL**-Transactional Control Language)  
 commit;rollback
-- 数据控制语言(**DCL**-Data Control Language)
+- 数据控制语言(**DCL**-Data Control Language)  
 grant;revoke
 
