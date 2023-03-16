@@ -1,7 +1,7 @@
 ## SQL概述
-数据库（DataBase）：通常是一个或一组文件，按照一定的格式储存一些文件的组合，是存数据的仓库  
-数据库管理系统（DataBase Management System）：专门管理数据库中数据的软件，对数据库中的数据进行增删改查。如Oracle、SQL Server、MySql、Sybase  
-SQL：结构化查询语言，程序员需要学习SQL语言，通过编写SQL语句，DBMS执行SQL语句，最终完成增删改查。它是一个标准，也是一门编程语言，在各种DBMS中都能使用  
+**数据库（DataBase）**：通常是一个或一组文件，按照一定的格式储存一些文件的组合，是存数据的仓库  
+**数据库管理系统（DataBase Management System）**：专门管理数据库中数据的软件，对数据库中的数据进行增删改查。如Oracle、SQL Server、MySql、Sybase  
+**SQL**：结构化查询语言，程序员需要学习SQL语言，通过编写SQL语句，DBMS执行SQL语句，最终完成增删改查。它是一个标准，也是一门编程语言，在各种DBMS中都能使用  
 ### mysql常用命令
 #### 查看mysql服务
 计算机右键-->管理-->服务和应用程序  
