@@ -10,7 +10,8 @@ mysql服务在启动之后才能使用，默认情况下为自动，即下一次
 net start/stop + 服务名称 区分大小写
 ### 一些命令(必须使用分号结尾才能执行，换行之后再写可以接着打分号)
 - 查看有哪些数据库    show databases;
-- 查看某个数据库下有哪些表 show tables;
+- 查看当前数据库下有哪些表 show tables;
+- 查看其他库中的表 show tables from + 库名;
 - 选择使用某个数据库  use + 数据库名字;
 - 创建数据库         create database + 数据库名字;
 - 向数据库中导入表    source + 绝对路径;（注意路径中不要有中文）
@@ -19,6 +20,7 @@ net start/stop + 服务名称 区分大小写
 - 查看数据库版本号     select version();
 - 查看当前在用的数据库 select database();
 - 删除数据库          drop database + 数据库名字;
+- 查看表的结构 desc + 表名;
 - 查询支持的存储引擎  show engines \G
 - 终止命令输入        \c
 - 退出 exit quit
@@ -40,5 +42,6 @@ create;drop;alter
 - 事务控制语言(**TCL**-Transactional Control Language)  
 commit;rollback  提交，回滚
 - 数据控制语言(**DCL**-Data Control Language)  
-grant;revoke  授权，撤销授权
+grant;revoke  授权，撤销授权  
+## 查询语言
 
