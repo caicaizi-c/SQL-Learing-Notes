@@ -29,13 +29,16 @@ net start/stop + 服务名称 区分大小写
 表还有主键/外键的概念，后面会讲  
 ### SQL的分类
 - 数据查询语言(**DQL**-Data Query Language)  
-select
+select  
+凡是带select关键字的都是查询语言
 - 数据操作语言(**DML**-Data Manipulation Language)  
-insert;delete;update
+insert;delete;update  
+凡是对表中数据进行增删改的都是这几个
 - 数据定义语言(**DDL**-Data Definition Language)  
-create;drop;alter
+create;drop;alter  
+主要操作的是表的结构不是数据
 - 事务控制语言(**TCL**-Transactional Control Language)  
-commit;rollback
+commit;rollback  提交，回滚
 - 数据控制语言(**DCL**-Data Control Language)  
-grant;revoke
+grant;revoke  授权，撤销授权
 
