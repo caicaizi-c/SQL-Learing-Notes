@@ -1,2 +1,2 @@
-# SQL-Learing-Notes
-## Keep updating?
+## SQL-Learing-Notes
+
