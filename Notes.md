@@ -44,10 +44,13 @@ commit;rollback  提交，回滚
 - 数据控制语言(**DCL**-Data Control Language)  
 grant;revoke  授权，撤销授权  
 ## 查询语言
-###简单的查询语言
+### 简单的查询语言
 - 查询一个字段  
-select 
-- 查询多个字段
-- 查询所有字段
-- 给查询的字段起别名
+select 字段名 from 表名;
+- 查询多个字段  
+使用逗号隔开
+- 查询所有字段  
+使用星号
+- 给查询的字段起别名  
+select 字段 as 别名 from dept;
 - 
