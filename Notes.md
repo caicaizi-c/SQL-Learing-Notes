@@ -71,8 +71,8 @@ select ename,sal\*12 as yearsal from emp
 ### 条件查询举例
 |运算符|要求|实现语句|
 |------|-----|-------|
-|=|查询薪水为5000的员工|
-|<>|查询薪水不等于5000的员工|
-|between..and..|查询工资在1600到3000之间的员工|
-|is null|查询津贴为空的员工|
-|and|查询工作岗位为manager，薪水大于2500的员工|
+|=|查询薪水为5000的员工|select ename from emp where sal=5000;|
+|<>|查询薪水不等于5000的员工|select ename,sal from emp where sal<>5000;|
+|between..and..|查询工资在1600到3000之间的员工|select ename,sal from emp where sal>=1600 and sal<=3000;|
+|is null|查询津贴为空的员工|select ename from emp where comm is null;|不能写comm = null
+|and|查询工作岗位为manager，薪水大于2500的员工|select ename,sal from emp where job="manager" and sal>2500;|
