@@ -62,3 +62,4 @@ select ename,sal\*12 as yearsal from emp
 | 运算符 | 说明 |
 |-------|-------|
 |=|等于|
+
