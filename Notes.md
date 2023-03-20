@@ -138,7 +138,8 @@ order by默认采用升序，如果存在where子句，那么order by必须放�
 |||直接输入字面值会借助表的结构把一堆一样的数放进去|select后可以跟某个表的字段名（变量名）或字面值（数据）|
 |rand|生成随机数|select rand()||
 |ifnull|将null转换为一个具体值|select ifnull(comm,0) from emp;|在SQL语句中，有null计算结果一定是Null,为了防止出现null，建议先用ifnull进行预处理|
-|concat|字符串拼接|
+|concat|字符串拼接|||  
+
 case..when..then..else..end
 如果job为MANAGER薪水上涨10%,是SALESMAN上涨50%->  
 select empno,ename,job,sal,case job when 'MANAGER' then sal\*1.1 when 'SALESMAN' then sal\*1.5 end as new sal from emp;
