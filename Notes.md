@@ -178,3 +178,5 @@ select empno,ename,job,sal,case job when 'MANAGER' then sal\*1.1 when 'SALESMAN'
   
 分组函数的组合使用：  
 select count(*),sum(sal),avg(sal),max(sal),min(sal) from emp;
+### 分组查询
+  
