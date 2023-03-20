@@ -174,6 +174,6 @@ select empno,ename,job,sal,case job when 'MANAGER' then sal\*1.1 when 'SALESMAN'
 |sum|取得薪水的合计|select sun<sal> from emp;|取得某一个列的和，null会被忽略|
 ||取得薪水的合计（sal+comm）|select sum(sal+ifnull(comm,0)) from emp;|sum会忽略Null值，应该先处理一下| 
 |avg|取得平均薪水|select avg(sal) from emp;|取得某一列的平均值|
-|max|取得最高薪水|select max(sal) from emp;|取得某一列的最大值|
+|max|取得最高薪水|select max(sal) from emp;|取得某一列的最大值|  
 分组函数的组合使用：  
 select count(*),sum(sal),avg(sal),max(sal),min(sal) from emp;
