@@ -198,11 +198,11 @@ select count(\*),sum(sal),avg(sal),max(sal),min(sal) from emp;
 - 查询结果集的去重
 &emsp 在字段前加distinct关键字，它只能出现在所有字段的前面，表示后面所有的字段联合起来去重。前面不能加字段，外面可以再套分组函数
   
-**语句顺序：
-&emsp select from where group by  having  order by 
-执行顺序：
-&emsp from where group by having select order by;
-**
+**语句顺序：**  
+**&emsp select from where group by  having  order by**  
+**执行顺序：**  
+**&emsp from where group by having select order by;**  
+
 ## 连接查询
 ### 连接查询的概念  
 
