@@ -161,6 +161,58 @@ select empno,ename,job,sal,case job when 'MANAGER' then sal\*1.1 when 'SALESMAN'
 |%S|代表秒|
 |%s|代表秒|
 |date_format|select empno,ename,date_format(hiredate,'%Y-%m-%d %H:%i:%s') as hiredate from emp|  
-
 ### 分组函数
+特点是输入多行但是只输出一行  
+分组函数自动忽略空值，不用手动的where排除  
+分组函数不能直接使用在where关键字后面  
+主要注意count(\*)（统计总行数，有一行就加1）和count(字段)（统计该字段下所有不为null元素的总数，所有列都是null的行是不存在的）
+分组函数的组合使用：  
+select count(\*),sum(sal),avg(sal),max(sal),min(sal) from emp;
+|关键字|举例|实现语句|补充|
+|------|---|--------|---|
+|count|取得所有的员工数|select count(\*) from emp;|取得所有记录，忽略是不是null，为null的值也会取得|
+||取得津贴不为null的员工数|select count(comm) from emp;|采用count(字段名称)，不会取得null的记录|
+||取得工作岗位的个数|select count(distinct job) from emp;|distinct为只取不一样的|
+|\sum|取得薪水的合计|select sum(sal) from emp;|取得某一列的和，null会被忽略|
+||取得薪水的合计（sal+comm）|select sum(sal+ifnull(comm,0)) from emp;|sum会忽略Null值，应该先处理一下| 
+|avg|取得平均薪水|select avg(sal) from emp;|取得某一列的平均值|
+|max|取得最高薪水|select max(sal) from emp;|取得某一列的最大值|
+
+### 分组查询（单表分组查询，特别重要）
+分组查询主要涉及到两个子句：group by 和 having  
+在SQL语句中如果有group by 语句，那么select后只能跟分组函数+参与分组的字段
+先分组然后对每一组的数据进行操作
+- 取得每个岗位的工资的合计，要求显示岗位名称和工资合计
+&emsp select job,sum(sal) from emp group by job;  
+(如果使用了order by,必须放到group by后面)
+&emsp selecr job,sum(sal) from emp group by job order by job;
   
+- 取得每个部门不同工作岗位的最高薪资（两个字段联合成一个字段看，联合分组）
+&emsp select deptno,job,max(sal) from emp group by deptno,job;
+  
+- 找出每个部门最高薪资，要求显示最高薪资大于3000的  
+&emsp 使用having子句，可以对查询结果进行进一步的过滤，不能单独使用，不能代替where，必须和group by联合使用，效率较低，使用where更好
+&emsp select deptno,max(sal) from emp group by deptno having max(sal)>3000;  
+&emsp select deptno,max(sal) from emp where sal > 3000 group by deptno;  
+  
+- 查询结果集的去重
+&emsp 在字段前加distinct关键字，它只能出现在所有字段的前面，表示后面所有的字段联合起来去重。前面不能加字段，外面可以再套分组函数
+  
+**语句顺序：
+&emsp select from where group by  having  order by 
+执行顺序：
+&emsp from where group by having select order by;
+**
+## 连接查询
+### 连接查询的概念  
+
+实际开发中大部分情况都是多张表联合查询取出最后结果，数据都放在一张表中容易造成冗余（SQL92、SQL99）
+### 连接查询的分类（根据连接方式分类）
+- 内连接（等值连接，非等值连接，自连接）
+- 外连接（左外连接，右外连接）
+- 全连接（用的非常少）
+
+
+
+
+
