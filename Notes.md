@@ -104,14 +104,18 @@ order by默认采用升序，如果存在where子句，那么order by必须放�
 |先按照job排序，再按照sal排序|select * from emp order by job,sal;|
 ### 手动指定排序顺序
 |举例|实现语句|
+|----|--------|
 |手动指定薪水由小到大排序|select * from emp order by sal asc;|
 |手动指定薪水由大到小排序|select * from emp order by sal desc;|
 ### 多个字段排序
 采用多个字段排序时，第一个字段重复后会按照第二个字段排序(前一个字段占主导地位)
+|举例|实现语句|
+|----|--------|
 |按照job和薪水倒序|select * from emp order by job desc, sal desc;|
 ### 使用字段的位置排序
 不建议这样写，健壮性不够
 |举例|实现语句|
+|----|--------|
 |按照薪水排序|select * from emp order by 6|
 
 ## 数据处理函数
