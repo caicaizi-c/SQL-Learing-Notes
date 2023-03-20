@@ -81,3 +81,56 @@ select ename,sal\*12 as yearsal from emp
 |not|查询薪水不包含1600和不包含3000的员工|select * from emp where sal<>1600 and sal<>3000;|
 | | |select * from emp where not {sal = 1600 or sal = 3000};|  
 | | |select * from emp where sal not in(1600,3000);|
+### 模糊查询like
+使用like和%、\_进行模糊查询，Like中的表达式必须放在单引号或双引号中  
+%匹配任意字符出现的个数，\_匹配一个字符  
+如果是名字中含有下划线的，在前面加上反斜杠
+|举例|实现语句|
+|----|----|
+|查询姓名以M开头的所有员工|select ename from emp where ename like 'M%';|
+|查询姓名以N结尾的所有员工|select ename from emp where ename like '%N';|
+|查询姓名中包含o的员工|select ename from emp where ename like '%O%';|
+|查询姓名中第二个字母为A的员工|select ename from emp where ename like '\_A%';|
+
+## 数据排序
+排序采用order by子句，order by+排序字段，排序字段可以放多个，多个字段之间用逗号连接。  
+order by默认采用升序，如果存在where子句，那么order by必须放在where后面
+### 单一字段排序
+默认升序
+|举例|实现语句|
+|----|-------|
+|按照薪水由小到大排序|select * from emp order by sal;|
+|工作岗位为manager的员工，薪水由小到大排序|select * from emp where job="manager" order by sal;|
+|先按照job排序，再按照sal排序|select * from emp order by job,sal;|
+### 手动指定排序顺序
+|举例|实现语句|
+|手动指定薪水由小到大排序|select * from emp order by sal asc;|
+|手动指定薪水由大到小排序|select * from emp order by sal desc;|
+### 多个字段排序
+采用多个字段排序时，第一个字段重复后会按照第二个字段排序(前一个字段占主导地位)
+|按照job和薪水倒序|select * from emp order by job desc, sal desc;|
+### 使用字段的位置排序
+不建议这样写，健壮性不够
+|举例|实现语句|
+|按照薪水排序|select * from emp order by 6|
+
+## 数据处理函数
+### 单行处理函数
+是一行一行处理的，特点是一个输入对应一个输出。
+|关键字|举例|实现语句|补充|
+|------|----|-------|------|
+|Lower|查询员工并将员工姓名改为小写|select lower(ename) from emp;|
+|upper|查询job为manager的员工|select * from emp where job=upper("manager");|表中的岗位字段是大写的|
+|substr|查询姓名以M开头的员工|select * from where substr(ename,1,1)=upper('M');|被截取的字符串，起始下标，截取的长度，起始下标从1 开始|
+|length|取得员工姓名长度为5的|select * from emp where length(ename)=5;|
+|trim|取得工作岗位为manager的员工|select * from emp where job=upper(' manager ');|去首位空格，不去中间空格,避免一些误打空格的情况|
+|str_to_date|查询1981-02-20入职的员工|select * from emp where HIREDATE='1981-02-20';|必须严格按照标准输出|
+|||select * from emp where HIREDATE=str_to_date('1981-02-20','%Y-%m-%d');|('字符串','匹配格式')|
+|||select * from emp where HIREDATE=str_to_date('02-20-1981','%m-%d-%Y');|将字符串转换为日期|
+|format|查询员工薪水加入千分位|select empno,ename,Format(sal,0) from emp;|结果：1,800|
+||查询员工薪水加入千分位和保留两位小数|select empno,ename,Format(sal,2) from emp;|结果：1,800.00|
+|round|四舍五入|select round(123.56);|结果：123.6|
+|||select round(1234.567,0)|结果：0表示保留到整数位，-1表示保留到十位|
+|||直接输入字面值会借助表的结构把一堆一样的数放进去|select后可以跟某个表的字段名（变量名）或字面值（数据）|
+|rand|
+|ifnull|
