@@ -160,23 +160,7 @@ select empno,ename,job,sal,case job when 'MANAGER' then sal\*1.1 when 'SALESMAN'
 |%T|代表时间，格式为24小时(hh,mm,ss)|
 |%S|代表秒|
 |%s|代表秒|
-|date_format|select empno,ename,date_format(hiredate,'%Y-%m-%d %H:%i:%s') as hiredate from emp|
+|date_format|select empno,ename,date_format(hiredate,'%Y-%m-%d %H:%i:%s') as hiredate from emp|  
+
 ### 分组函数
-特点是输入多行但是只输出一行  
-分组函数自动忽略空值，不用手动的where排除  
-分组函数不能直接使用在where关键字后面  
-主要注意count(\*)（统计总行数，有一行就加1）和count(字段)（统计该字段下所有不为null元素的总数，所有列都是null的行是不存在的）
-|关键字|举例|实现语句|补充|
-|------|---|--------|---|
-|count|取得所有的员工数|select count(\*) from emp;|取得所有记录，忽略是不是null，为null的值也会取得|
-||取得津贴不为null的员工数|select count(comm) from emp;|采用count(字段名称)，不会取得null的记录|
-||取得工作岗位的个数|select count(distinct job) from emp;|distinct为只取不一样的|
-|sum|取得薪水的合计|select sun<sal> from emp;|取得某一个列的和，null会被忽略|
-||取得薪水的合计（sal+comm）|select sum(sal+ifnull(comm,0)) from emp;|sum会忽略Null值，应该先处理一下| 
-|avg|取得平均薪水|select avg(sal) from emp;|取得某一列的平均值|
-|max|取得最高薪水|select max(sal) from emp;|取得某一列的最大值|
-  
-分组函数的组合使用：  
-select count(*),sum(sal),avg(sal),max(sal),min(sal) from emp;
-### 分组查询
   
