@@ -183,20 +183,20 @@ select count(\*),sum(sal),avg(sal),max(sal),min(sal) from emp;
 在SQL语句中如果有group by 语句，那么select后只能跟分组函数+参与分组的字段
 先分组然后对每一组的数据进行操作
 - 取得每个岗位的工资的合计，要求显示岗位名称和工资合计
-&emsp select job,sum(sal) from emp group by job;  
+&emsp; select job,sum(sal) from emp group by job;  
 (如果使用了order by,必须放到group by后面)
-&emsp selecr job,sum(sal) from emp group by job order by job;
+&emsp; selecr job,sum(sal) from emp group by job order by job;
   
 - 取得每个部门不同工作岗位的最高薪资（两个字段联合成一个字段看，联合分组）
-&emsp select deptno,job,max(sal) from emp group by deptno,job;
+&emsp; select deptno,job,max(sal) from emp group by deptno,job;
   
 - 找出每个部门最高薪资，要求显示最高薪资大于3000的  
-&emsp 使用having子句，可以对查询结果进行进一步的过滤，不能单独使用，不能代替where，必须和group by联合使用，效率较低，使用where更好
-&emsp select deptno,max(sal) from emp group by deptno having max(sal)>3000;  
-&emsp select deptno,max(sal) from emp where sal > 3000 group by deptno;  
+&emsp; 使用having子句，可以对查询结果进行进一步的过滤，不能单独使用，不能代替where，必须和group by联合使用，效率较低，使用where更好
+&emsp; select deptno,max(sal) from emp group by deptno having max(sal)>3000;  
+&emsp; select deptno,max(sal) from emp where sal > 3000 group by deptno;  
   
 - 查询结果集的去重
-&emsp 在字段前加distinct关键字，它只能出现在所有字段的前面，表示后面所有的字段联合起来去重。前面不能加字段，外面可以再套分组函数
+&emsp; 在字段前加distinct关键字，它只能出现在所有字段的前面，表示后面所有的字段联合起来去重。前面不能加字段，外面可以再套分组函数
   
 **语句顺序：**  
 **&emsp; select from where group by  having  order by**  
@@ -207,12 +207,29 @@ select count(\*),sum(sal),avg(sal),max(sal),min(sal) from emp;
 ### 连接查询的概念  
 
 实际开发中大部分情况都是多张表联合查询取出最后结果，数据都放在一张表中容易造成冗余（SQL92、SQL99）
-### 连接查询的分类（根据连接方式分类）
+#### 连接查询的分类（根据连接方式分类）
 - 内连接（等值连接，非等值连接，自连接）
 - 外连接（左外连接，右外连接）
 - 全连接（用的非常少）
+#### 笛卡尔积现象
+两张表在连接时没有任何条件限制。连接时加上筛选条件可以避免。（详见PPT）
 
-
-
+### 内连接
+特点：完成能够匹配where条件的数据查询出来，两张表之间无主次关系
+内连接也称等同连接，返回的结果集是两个表中相匹配的数据，而舍弃不匹配的数据。查询结果集必须满足on子句中的搜索条件
+#### 等值连接
+- 查询每个员工所在的部门名称，显示员工名和部门名。emp e和dept d进行连接。条件是e.deptno = d.deptno
+select e.ename,d.dname from emp e **inner join** dept d **on** e.deptno = d.deptno;
+#### 非等值连接
+- 查询每个员工的薪资等级，要求显示员工名，薪资，薪资等级
+select e.ename,e.sal,s.grade from emp e **inner join** salgrade s **on** e.sal between s.losal and s.hisal;
+#### 自连接（把一张表看成两张表）
+- 查询员工的上级领导，要求显示员工名和对应领导名
+select a.ename as '员工' ,b.ename as '领导' from emp a **inner join** emp b **on** a.mgr = b.empno;  
+(mgr是领导号码，empno是员工号码)
+### 外连接
+#### 右外连接
+#### 左外连接
+### 子查询
 
 
