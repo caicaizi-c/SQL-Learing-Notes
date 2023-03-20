@@ -1,4 +1,5 @@
-@[TOC]
+[TOC]
+
 ## SQL概述
 **数据库（DataBase）**：通常是一个或一组文件，按照一定的格式储存一些文件的组合，是存数据的仓库  
 **数据库管理系统（DataBase Management System）**：专门管理数据库中数据的软件，对数据库中的数据进行增删改查。如Oracle、SQL Server、MySql、Sybase  
