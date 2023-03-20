@@ -1,6 +1,3 @@
-
-[TOC]
-
 ## SQL概述
 **数据库（DataBase）**：通常是一个或一组文件，按照一定的格式储存一些文件的组合，是存数据的仓库  
 **数据库管理系统（DataBase Management System）**：专门管理数据库中数据的软件，对数据库中的数据进行增删改查。如Oracle、SQL Server、MySql、Sybase  
@@ -81,3 +78,6 @@ select ename,sal\*12 as yearsal from emp
 |and|查询工作岗位为manager，薪水大于2500的员工|select ename,sal from emp where job="manager" and sal>2500;|
 |in|查询工作岗位为manager或salesman的员工|select * from emp where job in ("manager","salesman");|
 |表达式的优先级|查询薪水大于 1800，并且部门代码为20 或 30 的员工|select * from emp where sal>1800 and (deptno = 20 or deptno = 30);|
+|not|查询薪水不包含1600和不包含3000的员工|select * from emp where sal<>1600 and sal<>3000;  
+select * from emp where not {sal = 1600 or sal = 3000};  
+select * from emp where sal not in(1600,3000);|
