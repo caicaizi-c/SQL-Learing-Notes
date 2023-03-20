@@ -136,5 +136,43 @@ order by默认采用升序，如果存在where子句，那么order by必须放�
 |round|四舍五入|select round(123.56);|结果：123.6|
 |||select round(1234.567,0)|结果：0表示保留到整数位，-1表示保留到十位|
 |||直接输入字面值会借助表的结构把一堆一样的数放进去|select后可以跟某个表的字段名（变量名）或字面值（数据）|
-|rand|
-|ifnull|
+|rand|生成随机数|select rand()||
+|ifnull|将null转换为一个具体值|select ifnull(comm,0) from emp;|在SQL语句中，有null计算结果一定是Null,为了防止出现null，建议先用ifnull进行预处理|
+|concat|字符串拼接|
+case..when..then..else..end
+如果job为MANAGER薪水上涨10%,是SALESMAN上涨50%->  
+select empno,ename,job,sal,case job when 'MANAGER' then sal\*1.1 when 'SALESMAN' then sal\*1.5 end as new sal from emp;
+select empno,ename,job,sal,case job when 'MANAGER' then sal\*1.1 when 'SALESMAN' then sal\*1.5 else sal end as newsal from emp;
+### SQL中的日期
+使用now()获取当前时间  
+以下为日期格式的说明
+|符号|含义|
+|----|----|
+|%Y|代表4位的年份|
+|%y|代表2位的年份|
+|%m|代表月，格式为{01,02,...,12}|
+|%c|代表月，格式为{1,2,...,12}|
+|%H|代表小时，格式为{00,01,...,23}|
+|%h|代表小时，格式为{01,02,...,12}|
+|%i|代表分钟，格式为{00,...,59}|
+|%r|代表时间，格式为12小时(hh,mm,ss [AP]M)|
+|%T|代表时间，格式为24小时(hh,mm,ss)|
+|%S|代表秒|
+|%s|代表秒|
+|date_format|select empno,ename,date_format(hiredate,'%Y-%m-%d %H:%i:%s') as hiredate from emp|
+### 分组函数
+特点是输入多行但是只输出一行  
+分组函数自动忽略空值，不用手动的where排除  
+分组函数不能直接使用在where关键字后面  
+主要注意count(\*)（统计总行数，有一行就加1）和count(字段)（统计该字段下所有不为null元素的总数，所有列都是null的行是不存在的）
+|关键字|举例|实现语句|补充|
+|------|---|--------|---|
+|count|取得所有的员工数|select count(\*) from emp;|取得所有记录，忽略是不是null，为null的值也会取得|
+||取得津贴不为null的员工数|select count(comm) from emp;|采用count(字段名称)，不会取得null的记录|
+||取得工作岗位的个数|select count(distinct job) from emp;|distinct为只取不一样的|
+|sum|取得薪水的合计|select sun<sal> from emp;|取得某一个列的和，null会被忽略|
+||取得薪水的合计（sal+comm）|select sum(sal+ifnull(comm,0)) from emp;|sum会忽略Null值，应该先处理一下| 
+|avg|取得平均薪水|select avg(sal) from emp;|取得某一列的平均值|
+|max|取得最高薪水|select max(sal) from emp;|取得某一列的最大值|
+分组函数的组合使用：  
+select count(*),sum(sal),avg(sal),max(sal),min(sal) from emp;
