@@ -218,18 +218,30 @@ select count(\*),sum(sal),avg(sal),max(sal),min(sal) from emp;
 特点：完成能够匹配where条件的数据查询出来，两张表之间无主次关系
 内连接也称等同连接，返回的结果集是两个表中相匹配的数据，而舍弃不匹配的数据。查询结果集必须满足on子句中的搜索条件
 #### 等值连接
-- 查询每个员工所在的部门名称，显示员工名和部门名。emp e和dept d进行连接。条件是e.deptno = d.deptno
+- 查询每个员工所在的部门名称，显示员工名和部门名。emp e和dept d进行连接。条件是e.deptno = d.deptno  
 select e.ename,d.dname from emp e **inner join** dept d **on** e.deptno = d.deptno;
 #### 非等值连接
-- 查询每个员工的薪资等级，要求显示员工名，薪资，薪资等级
-select e.ename,e.sal,s.grade from emp e **inner join** salgrade s **on** e.sal between s.losal and s.hisal;
+- 查询每个员工的薪资等级，要求显示员工名，薪资，薪资等级  
+select e.ename,e.sal,s.grade from emp e **inner join** salgrade s **on** e.sal between s.losal and s.hisal;  
 #### 自连接（把一张表看成两张表）
-- 查询员工的上级领导，要求显示员工名和对应领导名
+- 查询员工的上级领导，要求显示员工名和对应领导名  
 select a.ename as '员工' ,b.ename as '领导' from emp a **inner join** emp b **on** a.mgr = b.empno;  
 (mgr是领导号码，empno是员工号码)
 ### 外连接
+两张表之间形成了主次关系。任何一个右连接都有左连接的写法，任何一个左连接都有右连接的写法。取决于你把哪张表当作主表。  
+外连接查询结果条数一定大于内连接查询结果条数
 #### 右外连接
+将右边的表看作主表。右表除了满足条件的数据，剩下的也显示。  
+也就是右表数据全部查询，连带着左表有关系的也拿出来  
 #### 左外连接
+- 查询每个员工的上级领导，要求显示所有的员工名和领导名  
+&emsp; select a.ename,b.ename from emp a left join emp b on a.mgr=b.empno;
+#### 内外混合连接
+select from a join b on **ab** join c on **ac** join d on **ad**;  
+- 找出每个员工的部门名称以及工资等级，显示员工名，领导名，工资，部门名，薪资等级
+&emsp; select e.ename,m.ename,e.sak,d.dname,s.grade from emp e left join emp m e.mgr=m.deptno join dept d on e.deptno=d.deptno join salgrade s on e.sal between s.losal and s.hisal;
+
 ### 子查询
+子查询就是嵌套的select语句，可以理解为子查询就是一张表
 
 
