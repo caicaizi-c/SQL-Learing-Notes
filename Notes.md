@@ -243,5 +243,10 @@ select from a join b on **ab** join c on **ac** join d on **ad**;
 
 ### 子查询
 子查询就是嵌套的select语句，可以理解为子查询就是一张表
-
+#### where子句中的子查询
+- 找出比最低工资高的员工姓名和工资
+&emsp;select ename,sal from emp where sal>(select min(sal) from emp);
+- 查询管理者信息，要求显示其员工编号和姓名
+&emsp; select empno,ename from emp where empno in (select mgr from emp where mgr is not null);
+- 查询哪些人薪水高于员工平均薪水，要求显示员工编号，员工姓名，薪水
 
