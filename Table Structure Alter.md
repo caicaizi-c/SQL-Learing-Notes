@@ -34,6 +34,20 @@ create table t_student(
   email varchar(30),
   classes_id int(3)
 );
-- 向表中加入数据（必须使用客户端软件，cmd默认GBK编码，数据中设置的编码是UTF-8）
+```
+- 向表中加入数据（必须使用客户端软件，cmd默认GBK编码，数据中设置的编码是UTF-8）  
+**DML语句** insert语句只要执行成功就会多一条记录。字段名可以省略，相当于都写上了，所以值也要都写上，不能颠倒顺序  
 &emsp; insert into t_student(student_id,student_name,sex,birthday,email,classes_id) values(1001,'zhangsan','1988-01-01','qqq@163.com',10)  
-性别处不填值得话就使用了默认值。  
+性别处不填值得话就使用了默认值。指定默认值时为default值，不指定则为Null.  
+#### insert插入日期
+数字格式化：format（数字，‘格式’）  
+select ename,format(sal,’$999,999’) as sal from emp;加入千分位  
+str_to_date:将字符串varchar类型转换成date类型  Str_to_date(‘字符串日期’， ‘日期格式’)  
+此函数通常使用在insert上，因为插入的时候需要一个日期类型的数据，需要通过该函数将字符串转换为date。当日期字符串格式为年-月-日时，这个函数可以省略，会做自动类型转换  
+date_format:将data类型转换成具有一定格式的varchar字符串类型  
+将日期类型转换成特定格式的字符串	select id,name,data_format(birth,’%Y-%m-%d’) from t_user;  
+此函数通常使用在查询日期方面。设置展示的日期格式。  
+不指定的话也会有默认格式化，将日期类型转换成varchar类型。  
+Java中的日期格式：yyyy-MM-dd  HH:mm:ss SSS  
+
+
