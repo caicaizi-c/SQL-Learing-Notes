@@ -285,7 +285,7 @@ select * from table limit 2,4;  即取出第3至第6条，共4条记录
 ### 通用分页
 每页显示pagesize条记录，第No.page页？  
 符合我们需求的分页sql格式是：select * from table limit (start-1)\*pageSize,pageSize; 其中start是页码，pageSize是每页显示的条数。
-'''
+''
 public static void main (String agrs[]){
 int pageNo = 5;
 int pageSize = 10;
@@ -293,4 +293,4 @@ int pageSize = 10;
 int startIndex = {pageNo - 1} * pageSize;
 String sql = "select ... limit" + startIndex + "," + pageSize;
 }
-'''
+''
