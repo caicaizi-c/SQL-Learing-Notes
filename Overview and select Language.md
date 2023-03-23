@@ -242,11 +242,55 @@ select from a join b on **ab** join c on **ac** join d on **ad**;
 &emsp; select e.ename,m.ename,e.sak,d.dname,s.grade from emp e left join emp m e.mgr=m.deptno join dept d on e.deptno=d.deptno join salgrade s on e.sal between s.losal and s.hisal;
 
 ### 子查询
-子查询就是嵌套的select语句，可以理解为子查询就是一张表
+子查询就是嵌套的select语句，可以理解为子查询就是一张表，也就是将子查询的查询结果当作一张临时表
 #### where子句中的子查询
 - 找出比最低工资高的员工姓名和工资
 &emsp;select ename,sal from emp where sal>(select min(sal) from emp);
 - 查询管理者信息，要求显示其员工编号和姓名
 &emsp; select empno,ename from emp where empno in (select mgr from emp where mgr is not null);
 - 查询哪些人薪水高于员工平均薪水，要求显示员工编号，员工姓名，薪水
+&emsp; select empno,ename,sal from emp where sal>(select avg(sal) from emp);
+#### from语句中的子查询
+-查询员工信息，查询哪些人是管理者，要求显示出其员工编号和员工姓名
+&emsp;首先获得管理者的编号，去除重复的.然后将查询结果当作一张表，放到from 语句的后面
+&emsp;&emsp; select distinct mgr from emp where mgr is not null;
+&emsp;&emsp; select e.empno,e.ename from emp e join (select distinct mgr from emp where mgr is not null) m on e.empno=m.mgr;
+- 查询各个部门的平均薪水所属等级，需要显示部门编号，平均薪水，等级编号
+&emsp;首先取得各个部门的平均薪水,然后将部门的平均薪水作为一张表与薪水等级表建立连接，取得等级
+&emsp;&emsp; select deptno,avg(sal) as avg_sal from emp group by deptno;
+&emsp;&emsp; select a.deptno,a.avg_sal,g.grade from (select deptno,avg(sal) as avg_sal from emp group by deptno) a join salgrade g on a.avg_sal = between g.losal and hisal;
+#### 在select子句中使用子查询
+- 查询员工信息，并显示员工所属的部门名称
+&emsp; 在select中再次嵌套select语句完成部分名称的查询
+&emsp;&emsp; select e.ename,(select d.dname from dept d where e.deptno = d.deptno) as dname from emp e;
+这个子查询只能一次返回一条结果，多余一条就会报错
 
+### UNION
+union可以合并集合（相加）
+合并结果集的时候，需要查询字段对应个数相同，在oracle中更严格，不但要求个数相同，而且还要求类型对应相同
+- 查询工作岗位是manager和salesman的员工
+- 1.select ename,job from emp where job in('manager','salesman');
+- 2.select ename,job from emp where job = 'manager'  
+- union
+- select ename,job from emp where job = 'salesman';
+
+### limit的使用
+mysql提供了limit，主要用于提取前几条或中间某几行数据，也就是将查询结果集的一部分取出来，通常使用在分页查询中。
+**select * from table limit m,n**  
+其中m是指记录开始的index，从0开始表示第一条记录。n是指从第m+1条开始，取n条。  
+select * from table limit 2,4;  即取出第3至第6条，共4条记录
+- 按照薪资降序，取出排名在前5的员工(取出薪水最高的5名员工)
+- 1.select ename,sal from emp order by sal desc limit 5;
+- 2.select ename,sal from emp ordre by sal desc limit 0,5;
+### 通用分页
+每页显示pagesize条记录，第No.page页？  
+符合我们需求的分页sql格式是：select * from table limit (start-1)\*pageSize,pageSize; 其中start是页码，pageSize是每页显示的条数。
+'''
+public static void main (String agrs[]){
+int pageNo = 5;
+int pageSize = 10;
+
+int startIndex = {pageNo - 1} * pageSize;
+String sql = "select ... limit" + startIndex + "," + pageSize;
+}
+'''
